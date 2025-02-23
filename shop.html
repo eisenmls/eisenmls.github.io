@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sock Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+        }
+        header {
+            background-color: #ff6b6b;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+        .product {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .product img {
+            width: 100%;
+            border-radius: 10px;
+        }
+        .product button {
+            margin-top: 10px;
+            padding: 10px;
+            background: #ff6b6b;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .cart {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+        }
+        .cart a {
+            display: block;
+            margin-top: 10px;
+            color: #ff6b6b;
+            font-weight: bold;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <header>Strumpfwaren Shopseite</header>
+    <div class="container">
+        <div class="product">
+            <img src="https://grojadori.de/images/product_images/original_images/2-paar-dicke-alpaka-socken-braun-03-40017.jpg" alt="Sock 1">
+            <h3>Geile Socke</h3>
+            <p>$10.00</p>
+            <button onclick="addToCart('https\:\/\/grojadori.de/images/product_images/original_images/2-paar-dicke-alpaka-socken-braun-03-40017.jpg','Geile Socke', '10.00€')">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://cdn03.plentymarkets.com/m4xlwnmqxetu/item/images/514/full/--10_1.JPG" alt="Sock 2">
+            <h3>Blaue Socke</h3>
+            <p>12.00€</p>
+            <button onclick="addToCart('https\:\/\/cdn03.plentymarkets.com/m4xlwnmqxetu/item/images/514/full/--10_1.JPG', 'Blaue Socke', '12.00€')">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/7150CP4H1sL._AC_UL1092_.jpg" alt="Sock 2">
+            <h3>Bunte Socke</h3>
+            <p>13.00€</p>
+            <button onclick="addToCart('https\:\/\/images-na.ssl-images-amazon.com/images/I/7150CP4H1sL._AC_UL1092_.jpg', 'Bunte Socken', '13.00€')">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://cdn.dedoles.sk/buxus/images/cache/product_gallery_item_zoomed_icc/fotogaleria/dedoles/novy_katalog_produktov/inspiracie_1/vesele_ponozky_kategoria/vysoke_ponozky_01/vesele_ponozky_velkonocny_zajacik_1/GMRS133_3.jpg" alt="Sock 2">
+            <h3>Gruene Socke</h3>
+            <p>6.00€</p>
+            <button onclick="addToCart('https\:\/\/cdn.dedoles.sk/buxus/images/cache/product_gallery_item_zoomed_icc/fotogaleria/dedoles/novy_katalog_produktov/inspiracie_1/vesele_ponozky_kategoria/vysoke_ponozky_01/vesele_ponozky_velkonocny_zajacik_1/GMRS133_3.jpg', 'Gruene Socken', '6.00€')">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://thumbs.dreamstime.com/b/optimistische-socke-14645438.jpg" alt="Sock 2">
+            <h3>China Bangladesch Socke</h3>
+            <p>0.30€</p>
+            <button onclick="addToCart('https\:\/\/thumbs.dreamstime.com/b/optimistische-socke-14645438.jpg', 'China Bangladesch Socke', '0.30€')">Add to Cart</button>
+        </div>
+        <div class="product">
+            <img src="https://cdn.vegaoo.de/images/rep_art/gra/173/8/173824/weisser-strumpf-mit-schwarzen-schleifen-fur-erwachsene.jpg" alt="Sock 2">
+            <h3>Sasha's Liebling</h3>
+            <p>13.33€</p>
+            <button onclick="addToCart('https\:\/\/cdn.vegaoo.de/images/rep_art/gra/173/8/173824/weisser-strumpf-mit-schwarzen-schleifen-fur-erwachsene.jpg', 'Sasha\'s Liebling', '13.33€')">Add to Cart</button>
+        </div>
+    </div>
+    <div class="cart">
+        <p id="cart-count">Cart: 0 items</p>
+        <a href="cart.html">Zum Warenkorb</a>
+    </div>
+    <script>
+        let cart = [];
+        function addToCart(itemPic, itemName, itemPrice) {
+            cart.push({pic:itemPic, name: itemName, price: itemPrice });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            document.cookie = 'cart' + '=' + JSON.stringify(cart);
+            updateCartCount();
+        }
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = `Cart: ${cart.length} items`;
+        }
+        function deleteCart(){
+            cart = [];
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const storedCart = document.cookie.substring(5);//localStorage.getItem('cart');
+            if (storedCart) {
+                cart = JSON.parse(storedCart);
+                updateCartCount();
+            }
+        });
+    </script>
+</body>
+</html>

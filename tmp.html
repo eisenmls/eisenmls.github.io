@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sock Store</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+            color: #333;
+            text-align: center;
+        }
+        .homepage {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ff6b6b;
+            color: white;
+        }
+        .homepage h1 {
+            font-size: 36px;
+        }
+        .homepage a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background-color: white;
+            color: #ff6b6b;
+            text-decoration: none;
+            font-size: 18px;
+            border-radius: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="homepage">
+        <h1>Welcome to the Modern Sock Store</h1>
+        <p>Find the best and most comfortable socks here!</p>
+        <a href="shop.html">Enter Shop</a>
+    </div>
+    <script>
+        let cart = [];
+        function addToCart(itemName, itemPrice) {
+            cart.push({ name: itemName, price: itemPrice });
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+        }
+        function updateCartCount() {
+            document.getElementById('cart-count').innerText = `Cart: ${cart.length} items`;
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const storedCart = localStorage.getItem('cart');
+            if (storedCart) {
+                cart = JSON.parse(storedCart);
+                updateCartCount();
+            }
+        });
+    </script>
+</body>
+</html>
